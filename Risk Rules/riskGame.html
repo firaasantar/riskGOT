@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="riskGame.css">
+    <link rel="stylesheet" href="countryLocations.css">
+    <link rel="shortcut icon" type="image/png" href="images/gotFavicon.png"/>
+    <script src="riskGame.js" type="text/javascript"></script>
+    <title>The Risk Game</title>
+</head>
+<body>
+    <!-- Players name -->
+    <h1 id="playerName"> Firaas </h1>
+
+    <div id="board">
+        <img id="essosGameMap" src="images/essosGameMap.jpeg" alt="Game Map" usemap="#map">
+            <!-- Image map definition -->
+    </div>
+
+    <div id="continents">
+        <div id="andalos">
+            <button id="braavosianCoastlands" onclick="showCountryInfo('braavosianCoastlands')"> Braavosian Coastlands</button>
+            <button id="axe" onclick="showCountryInfo('axe')"> The Axe</button>
+            <button id="norvos" onclick="showCountryInfo('norvos')"> Hills of Norvos</button>
+            <button id="qohor" onclick="showCountryInfo('qohor')"> Forest of Qohor</button>
+            <button id="flatlands" onclick="showCountryInfo('flatlands')"> The Flatlands</button>
+            <button id="rhoyne" onclick="showCountryInfo('rhoyne')"> Upper Rhoyne</button>
+            <button id="goldenFields" onclick="showCountryInfo('goldenFields')"> The Golden Fields</button>
+        </div>
+        <div id="disputedLands">
+            <button onclick="showCountryInfo('Country 1')">Country 1</button>
+            <button onclick="showCountryInfo('Country 2')">Country 2</button>
+            <button onclick="showCountryInfo('Country 3')">Country 3</button>
+            <button onclick="showCountryInfo('Country 4')">Country 4</button>
+            <button onclick="showCountryInfo('Country 5')">Country 5</button>
+            <button onclick="showCountryInfo('Country 6')">Country 6</button>
+        </div>
+        <div id="longSummer">
+            <button onclick="showCountryInfo('Country 1')">Country 1</button>
+            <button onclick="showCountryInfo('Country 2')">Country 2</button>
+            <button onclick="showCountryInfo('Country 3')">Country 3</button>
+            <button onclick="showCountryInfo('Country 4')">Country 4</button>
+            <button onclick="showCountryInfo('Country 5')">Country 5</button>
+        </div>
+        <div id="dothrakiSea">
+            <button onclick="showCountryInfo('Country 1')">Country 1</button>
+            <button onclick="showCountryInfo('Country 2')">Country 2</button>
+            <button onclick="showCountryInfo('Country 3')">Country 3</button>
+            <button onclick="showCountryInfo('Country 4')">Country 4</button>
+            <button onclick="showCountryInfo('Country 5')">Country 5</button>
+            <button onclick="showCountryInfo('Country 6')">Country 6</button>
+            <button onclick="showCountryInfo('Country 7')">Country 7</button>
+        </div>
+        <div id="slaversBay">
+            <button onclick="showCountryInfo('Country 1')">Country 1</button>
+            <button onclick="showCountryInfo('Country 2')">Country 2</button>
+            <button onclick="showCountryInfo('Country 3')">Country 3</button>
+            <button onclick="showCountryInfo('Country 4')">Country 4</button>
+            <button onclick="showCountryInfo('Country 5')">Country 5</button>
+            <button onclick="showCountryInfo('Country 6')">Country 6</button>
+        </div>
+        <div id="jadeSea">
+            <button onclick="showCountryInfo('Country 1')">Country 1</button>
+            <button onclick="showCountryInfo('Country 2')">Country 2</button>
+            <button onclick="showCountryInfo('Country 3')">Country 3</button>
+            <button onclick="showCountryInfo('Country 4')">Country 4</button>
+            <button onclick="showCountryInfo('Country 5')">Country 5</button>
+        </div>
+        <!-- Add more buttons for other countries -->
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,88 @@
+@font-face {
+    font-family: gotFont; src: url('Game of Thrones.ttf');
+}
+
+body{
+    background-image: url("images/gotLogo.jpg");
+    background-size: 200pt;
+}
+
+main{
+    background-color: #000000;
+    color: white;
+    width: 80%;
+    font-family: gotFont, Luminari, fantasy;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100pt;
+    border: 2px solid #ffffff;
+    padding: 20pt;
+}
+
+a{
+    color: white;
+}
+
+img{
+    float: right;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
+
+p{
+    text-align: justify;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.numbers{
+    color: red;
+}
+
+.steps{
+    color: aqua;
+}
+
+#rules p{
+    font-size: 15pt;
+}
+
+#features{
+
+}
+
+#setup{
+    
+}
+
+#details{
+
+}
+
+#westerosmap{
+    width: 30%;
+}
+
+#essosmap{
+    width: 40%;
+}
+
+h2{
+    clear: right;
+}
+
+#reinforcmentPhase h2{
+    clear: none;
+}
+
+#reinforcmentPhase{
+    
+    padding: 3%;
+}
+
+#reinforce{
+    display: flex;
+}
