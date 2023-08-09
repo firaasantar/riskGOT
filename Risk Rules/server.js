@@ -2,6 +2,8 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('game.db');
 
 const app = express();
 const server = http.createServer(app);
@@ -33,11 +35,29 @@ io.on('connection', (socket) => {
     
 
     socket.on('login', (data) => {
-        const { username, password } = data;
+        const { username, password , option , gameId} = data;
         console.log('A user connected');
         if (userData[username] === password) {
+            if(option = "newGame"){
+                
+// Create the 'territories' table
+            db.serialize(() => {
+                                db.run(`
+                CREATE TABLE IF NOT EXISTS ${gameID} (
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                owner TEXT,
+                numberOfTroops INTEGER,
+                castle INTEGER,
+                port INTEGER,
+                neighbors TEXT,
+                                                )
+                                            `);
+});
             socket.emit('verification_result', { success: true });
             // Serve the riskGame.html page to the authenticated user
+        
+        }
         } else {
             socket.emit('verification_result', { success: false });
         }
@@ -52,7 +72,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/lobby.html');
 });
 app.get('/riskGame', (req, res) => {
-    
+
     res.sendFile(__dirname + '/public/riskGame.html');
 });
 
