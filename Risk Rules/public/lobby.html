@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.socket.io/4.0.1/socket.io.js"></script>
+  <title>Game Options</title>
+</head>
+<body>
+  <h1>Welcome!</h1>
+  <form>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    
+    <div class="option-container">
+      <input type="radio" id="newGame" name="option" value="newGame" required>
+      <label for="newGame">Create a New Game</label>
+    </div>
+    
+    <div class="option-container">
+      <input type="radio" id="joinGame" name="option" value="joinGame" required>
+      <label for="joinGame">Join an Existing Game</label>
+    </div>
+    
+    <div id="gameIdContainer" style="display: none;">
+      <label for="gameId">Game ID:</label>
+      <input type="text" id="gameId" name="gameId">
+    </div>
+    
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const socket = io();
+
+    const form = document.querySelector('form');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const gameIdInput = document.getElementById('gameId');
+    const gameOptions = document.querySelectorAll('input[name="option"]');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const selectedOption = Array.from(gameOptions).find(option => option.checked);
+        const optionValue = selectedOption ? selectedOption.value : '';
+
+        const data = {
+            username: usernameInput.value,
+            password: passwordInput.value,
+            option: optionValue,
+            gameId: gameIdInput.value
+        };
+
+        socket.emit('login', data);
+
+        socket.on('verification_result', (result) => {
+          console.log(result.success)
+            if (result.success) {
+        
+              window.location.href = '/riskGame';
+
+                console.log('Login successful');
+                // You can use the socket.user object to access user information on the client-side
+            } else {
+                console.log('Login failed');
+                // Handle login failure, show an error message, etc.
+            }
+        });
+    });
+
+
+  </script>
+</body>
+</html>
