@@ -28,7 +28,7 @@
     
     <div id="gameIdContainer" style="display: none;">
       <label for="gameId">Game ID:</label>
-      <input type="text" id="gameId" name="gameId">
+      <input type="text" id="gameId" name="gameId" minlength="4" maxlength="4">
     </div>
     
     <button type="submit">Submit</button>
@@ -42,7 +42,24 @@
     const passwordInput = document.getElementById('password');
     const gameIdInput = document.getElementById('gameId');
     const gameOptions = document.querySelectorAll('input[name="option"]');
+    const gameIdContainer = document.getElementById('gameIdContainer');
+const joinGameOption = document.getElementById('joinGame');
+function generateRandomGameId() {
+    const min = 1000; // Minimum 4-digit number
+    const max = 9999; // Maximum 4-digit number
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const newGameOption = document.getElementById('newGame');
 
+newGameOption.addEventListener('change', () => {
+    if (newGameOption.checked) {
+        gameIdInput.value = generateRandomGameId();
+        gameIdInput.disabled = true;
+    } else {
+        gameIdInput.value = '';
+        gameIdInput.disabled = false;
+    }
+});
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 

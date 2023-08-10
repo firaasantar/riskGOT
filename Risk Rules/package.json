@@ -13,6 +13,8 @@
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
     "socket.io": "^4.7.2",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6"
   }
 }

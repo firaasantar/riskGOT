@@ -3,6 +3,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
+const sqlite = require('sqlite')
 const db = new sqlite3.Database('game.db');
 
 const app = express();
@@ -38,21 +39,21 @@ io.on('connection', (socket) => {
         const { username, password , option , gameId} = data;
         console.log('A user connected');
         if (userData[username] === password) {
-            if(option = "newGame"){
+            if(option == "newGame"){
                 
 // Create the 'territories' table
-            db.serialize(() => {
-                                db.run(`
-                CREATE TABLE IF NOT EXISTS ${gameID} (
-                id INTEGER PRIMARY KEY,
-                name TEXT,
-                owner TEXT,
-                numberOfTroops INTEGER,
-                castle INTEGER,
-                port INTEGER,
-                neighbors TEXT,
-                                                )
-                                            `);
+db.serialize(() => {
+    db.run(`
+        CREATE TABLE IF NOT EXISTS T${gameId} (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            owner TEXT,
+            numberOfTroops INTEGER,
+            castle INTEGER,
+            port INTEGER,
+            neighbors TEXT
+        )
+    `);
 });
             socket.emit('verification_result', { success: true });
             // Serve the riskGame.html page to the authenticated user
