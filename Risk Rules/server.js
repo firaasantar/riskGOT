@@ -32,6 +32,18 @@ fs.readFile(userDataFile, 'utf8', (err, data) => {
     });
 });
 
+// Get allowed move from cetain tile
+
+
+function allowedMoves(user,name,gameid){
+    db.all(`SELECT FROM ${gameid}`)
+    //takes a username and name of tile gives all options for available moves as astring with , as seperator
+}
+
+
+
+
+
 io.on('connection', (socket) => {
     
 
@@ -55,7 +67,9 @@ db.serialize(() => {
         )
     `);
 });
-            socket.emit('verification_result', { success: true });
+
+        
+            socket.emit('runRisk',);
             // Serve the riskGame.html page to the authenticated user
         
         }
@@ -67,14 +81,71 @@ db.serialize(() => {
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });
+    socket.on("get_menu_data",(data)=>{
+        const [name,tile,gameid] = data;
+        
+        socket.emit("moves",allowedMoves(name,tile,gameid))
+
+
+    });
+
+    socket.on('Move_played', (data) => {
+        cosnt [target,from,gameID] = data;
+        console.log('Received data from floating menu:', data);
+
+        // data bas option value which is the name of the tile to be attacked and the name of the tile attacking from
+        // Attack function goes here
+        socket.emit('end_turn');
+    });
 });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/lobby.html');
 });
-app.get('/riskGame', (req, res) => {
+app.get('/riskGame/:user/:gameid', (req, res) => {
+    const filename = req.params.gameid;
+    const uner = req.params.user;
+    const originalFilePath = path.join(__dirname + '/public/riskGame.html');
 
-    res.sendFile(__dirname + '/public/riskGame.html');
+    // Read the original HTML file
+    fs.readFile(originalFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            res.status(500).send('Error reading file');
+            return;
+        }
+
+        // Append content to the original HTML
+        const appendedContent = `<p id = "gameid" style="display: none;">${filename}</p><p id = "userid" style="display: none;">${user}</p>`;
+        const modifiedHTML = data + appendedContent;
+
+        // Create a temporary file with the modified content
+        const tempFilename = `temp_${filename}`;
+        const tempFilePath = path.join(__dirname, 'files', tempFilename);
+
+        fs.writeFile(tempFilePath, modifiedHTML, 'utf8', (err) => {
+            if (err) {
+                console.error('Error creating temporary file:', err);
+                res.status(500).send('Error creating temporary file');
+                return;
+            }
+
+            // Send the temporary modified file to the client
+            res.sendFile(tempFilePath, {}, (err) => {
+                if (err) {
+                    console.error('Error sending file to client:', err);
+                    res.status(500).send('Error sending file to client');
+                }
+
+                // Delete the temporary file after sending
+                fs.unlink(tempFilePath, (err) => {
+                    if (err) {
+                        console.error('Error deleting temporary file:', err);
+                    }
+                });
+            });
+        });
+    });
 });
 
 server.listen(3000, () => {

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
+  <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="riskGame.css">
     <link rel="shortcut icon" type="image/png" href="images/gotFavicon.png"/>
     <script src="riskGame.js" type="text/javascript"></script>
@@ -8,13 +10,11 @@
 </head>
 <body>
     <!-- Players name -->
-    <h1 id="playerName"> Firaas </h1>
+    <h1 id="playerName">Firaas</h1>
 
     <div id="floatingMenu">
-        <select id="menuDropdown">
-          <option value="menuOption1">Menu Option 1</option>
-          <option value="menuOption2">Menu Option 2</option>
-          <option value="menuOption3">Menu Option 3</option>
+        <select id="menuDropdown" >
+          
         </select>
         <button id="submitButton">Submit</button>
       </div>

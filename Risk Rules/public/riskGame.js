@@ -36,13 +36,47 @@ const locations = [
     "New Ghis",
     "Lhazar"
 ];
+const socket = io();
 const floatingMenu = $("floatingMenu");
-locations.forEach(element => {
-    $(element).addEventListener("click", function(event) {
+
+//       Starts Turn
+function startTurn(){
+locations.forEach( element => {
+    
+    $(element).addEventListener("click",async function(event) {
       event.preventDefault();
+      const move = {
+        name: $("userid").innerText,//username
+        tile: element,
+        gameid: $("gameid").innerText
+    };
+    await socket.emit("get_menu_data",move);
+    await socket.on("availableMoves",async(moves)=>{
+            const menu = $("menuDropdown");
+            menu.innerHTML = "";
+            moves.forEach(optionValue => {
+                const option = document.createElement('option');
+                option.value = optionValue;
+                option.textContent = optionValue;
+                menu.appendChild(option);
+                menu.name(element);
+            });
+        
+        })
+
+    
       showFloatingMenu(event.pageX, event.pageY);
     });
-  });
+  });}
+
+  //     ENDS turn 
+
+  function endturn(){
+    locations.forEach(element => {
+        $(element).removeEventListener();
+    })
+  }
+  
 
   function showFloatingMenu(x, y) {
     floatingMenu.style.left = x + "px";
@@ -78,9 +112,22 @@ locations.forEach(element => {
     window.removeEventListener("mousemove", doDrag);
     window.removeEventListener("mouseup", endDrag);
   }
+  socket.on("your_turn",()=>{startTurn();});
 
+  socket.on("end_turn",()=>{endturn();})
 
-    $("submitButton").addEventListener("click", function() {
-      floatingMenu.style.display = "none";
-    });
+  $("submitButton").addEventListener("click",  async function() {
+    const from = $("menuDropdown").name;
+    const target = $("menuDropdown").value;
+    
+    const dataToSend = {
+        target: selectedOption,
+        from: a,
+        gameid: $("gameid").innerText
+        
+    };
+    
+    await socket.emit('Move_played',  dataToSend);
+    $("menuDropdown").name = "";
+    floatingMenu.style.display = "none";});
 });

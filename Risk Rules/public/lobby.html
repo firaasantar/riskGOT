@@ -78,8 +78,8 @@ newGameOption.addEventListener('change', () => {
         socket.on('verification_result', (result) => {
           console.log(result.success)
             if (result.success) {
-        
-              window.location.href = '/riskGame';
+                
+              window.location.href = `/riskGame/${gameIdInput.value}`;
 
                 console.log('Login successful');
                 // You can use the socket.user object to access user information on the client-side
